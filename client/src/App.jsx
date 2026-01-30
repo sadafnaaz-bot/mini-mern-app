@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const API = "http://localhost:5000";
+const API = "http://localhost:5000https://mini-mern-app.onrender.com";
 
 function App() {
   const [text, setText] = useState("");
