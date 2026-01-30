@@ -7,7 +7,7 @@ import cors from "cors";
 import Note from "./models/Note.js";
 
 const app = express();
-app.use(cors());
+app.use(cors({origin:"*"}));
 app.use(express.json());
 
 console.log("MONGO_URL =", process.env.MONGO_URL);
