@@ -1,28 +1,40 @@
 import { useEffect, useState } from "react";
 
-const API = "http://localhost:5000https://mini-mern-app.onrender.com";
+const API_URL = "https://mini-mern-app.onrender.com";
 
 function App() {
   const [text, setText] = useState("");
   const [notes, setNotes] = useState([]);
 
+  // fetch all notes
   const fetchNotes = async () => {
-    const res = await fetch(API + "/notes");
-    const data = await res.json();
-    setNotes(data);
+    try {
+      const res = await fetch(`${API_URL}/notes`);
+      const data = await res.json();
+      setNotes(data);
+    } catch (err) {
+      console.error("Error fetching notes", err);
+    }
   };
 
+  // add new note
   const addNote = async () => {
-    if (!text) return;
+    if (!text.trim()) return;
 
-    await fetch(API + "/notes", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text })
-    });
+    try {
+      await fetch(`${API_URL}/notes`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ text })
+      });
 
-    setText("");
-    fetchNotes();
+      setText("");
+      fetchNotes();
+    } catch (err) {
+      console.error("Error adding note", err);
+    }
   };
 
   useEffect(() => {
